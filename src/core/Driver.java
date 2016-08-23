@@ -1,5 +1,13 @@
 package core;
+
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Scanner;
+
+import lammps.DatWriter;
+import pdb.PDB_Parser;
 import tinker.ARC_Parser;
 import tinker.XYZ_Parser;
 
@@ -19,13 +27,13 @@ public class Driver {
 		Scanner sc = new Scanner(System.in);
 		
 		//Read in file name of file
-		System.out.println("Enter the name of the coordinate file:");
-		String fileName = sc.nextLine();
+		//System.out.println("Enter the name of the coordinate file:");
+		//String fileName = sc.nextLine();
 		
-		arc_Analysis(fileName);
+		//arc_Analysis(fileName);
 		//xyz_Analysis(fileName);
 		//TODO Implement more calculations here:
-		
+		pdbToLmpDat(sc);
 		sc.close();
 	}
 	
@@ -36,6 +44,7 @@ public class Driver {
 	 */
 	public static void arc_Analysis(String fileName)
 	{
+		
 		BulkSystem simulation = new BulkSystem();
 		ARC_Parser parser = new ARC_Parser(fileName, simulation, 10000, 12.5, 0.03);
 		parser.parseFile();
@@ -56,5 +65,54 @@ public class Driver {
 		XYZ_Parser parser = new XYZ_Parser(fileName, simulation);
 		parser.parseFile();
 		parser.rDF(simulation, 12.5, 0.25);
+	}
+	
+	/**
+	 * Converts a .pdb file into a Lammps .dat input file while conserving bond and angle definitions.
+	 * Requires both the system .pdb file and individual .pdb files for each molecule containing bond and
+	 * angle associations. 
+	 * @param sc	The console prompt
+	 */
+	public static void pdbToLmpDat(Scanner sc)
+	{
+		PDB_Parser par = new PDB_Parser();
+		
+		//Parse the blueprint files containing atoms, bonds, angles
+		while(true)
+		{
+			System.out.println("Enter the name of the file containing a single molecule, or type \"DONE\"");
+			String bPName = sc.nextLine();
+			
+			if(bPName.equals("DONE"))
+			{
+				break;
+			}
+			
+			par.parseBlueprintFile(bPName);
+		}
+		
+		//Parse the file containing the entire system
+		String sysName = null;
+		boolean badFile = true;
+		while(badFile)
+		{
+			System.out.println("Enter the name of the system file.");
+			sysName = sc.nextLine();
+			Path path = Paths.get(sysName);
+			if(Files.exists(path))
+			{
+				badFile = false;
+			}
+			else
+			{
+				System.err.println("File does not exist. Please enter a valid file name.");
+			}
+		}
+		
+		par.parseSystemFile(sysName);
+		
+		//Write the molecules to a Lammps .dat file
+		ArrayList<Molecule> mols = par.getMolecules();		
+		DatWriter.writeFile(mols);
 	}
 }

@@ -1,0 +1,16 @@
+LAMMPS data file builder ideas:
+
+Read in single molecule file in pdb format
+	pdb parser
+Read all connections and relative translations
+	pdb parser
+Copy the molecule object into a BulkSystem
+	core
+Make more in a BulkSystem
+	copy settings
+		Extended BulkSystem?
+Export to lammps data file
+	dataConverter
+	
+	
+	String.split("\\s+");
