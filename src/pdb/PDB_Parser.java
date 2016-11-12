@@ -167,7 +167,6 @@ public class PDB_Parser
 		int atomID;
 		//try{
 		atomType = parts[2];
-		System.out.println(parts[1]);
 		atomID = Integer.parseInt(parts[1]);
 		
 		x = Double.parseDouble(parts[parts.length-3]);

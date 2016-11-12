@@ -62,6 +62,8 @@ public class DatWriter
 		//Write out Angles
 		writeAngles(br, mols);
 		
+		System.out.println("Finished!");
+		
 		br.close();
 		fr.close();
 		} catch(IOException io)
