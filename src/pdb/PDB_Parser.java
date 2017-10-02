@@ -117,7 +117,7 @@ public class PDB_Parser
 							mol.addAtom(atom);
 						}
 						
-						mol.buildBondsAndAngles();
+						mol.buildConnections();
 						molecules.add(mol);
 						tempAtomCollection = new ArrayList<Atom>();
 						molNum = parts[5];
