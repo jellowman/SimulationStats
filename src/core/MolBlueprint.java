@@ -22,29 +22,30 @@ public class MolBlueprint
 	{
 		bondIndexes = new ArrayList<BondIndex>();
 		angleIndexes = new ArrayList<AngleIndex>();
+		dihedralIndexes = new ArrayList<DihedralIndex>();
 	}
 	
-	public void addBondIndex(String atom1, String atom2)
+	public void addBondIndex(int connecID, String atom1, String atom2)
 	{
 		int a1 = Integer.parseInt(atom1);
 		int a2 = Integer.parseInt(atom2);
-		bondIndexes.add(new BondIndex(a1, a2));
+		bondIndexes.add(new BondIndex(connecID, a1, a2));
 	}
 	
-	public void addAngleIndex(String atom1, String atom2, String atom3)
+	public void addAngleIndex(int connecID, String atom1, String atom2, String atom3)
 	{
 		int a1 = Integer.parseInt(atom1);
 		int a2 = Integer.parseInt(atom2);
 		int a3 = Integer.parseInt(atom3);
-		angleIndexes.add(new AngleIndex(a1, a2, a3));
+		angleIndexes.add(new AngleIndex(connecID, a1, a2, a3));
 	}
 	
-	public void addDihedralIndex(String atom1, String atom2, String atom3, String atom4) {
+	public void addDihedralIndex(int connecID, String atom1, String atom2, String atom3, String atom4) {
 		int a1 = Integer.parseInt(atom1);
 		int a2 = Integer.parseInt(atom2);
 		int a3 = Integer.parseInt(atom3);
 		int a4 = Integer.parseInt(atom4);
-		dihedralIndexes.add(new DihedralIndex(a1, a2, a3, a4));
+		dihedralIndexes.add(new DihedralIndex(connecID, a1, a2, a3, a4));
 	}
 	
 	public ArrayList<BondIndex> getBondIndexes()

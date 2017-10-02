@@ -89,11 +89,12 @@ public class Molecule
 			this.atom1 = atom1;
 			this.atom2 = atom2;
 			this.atom3 = atom3;
+			this.atom4 = atom4;
 		}
 		
 		public String toString()
 		{
-			String formatted = String.format("%12d %12d %12d %12d", dihedralID, atom1.getID(), atom2.getID(), atom3.getID(), atom4.getID());
+			String formatted = String.format("%12d %12d %12d %12d %12d", dihedralID, atom1.getID(), atom2.getID(), atom3.getID(), atom4.getID());
 			return formatted;
 		}
 		
@@ -108,20 +109,20 @@ public class Molecule
 		try{
 		for(BondIndex bondIndex : blueprint.getBondIndexes())
 		{
-			Bond bond = new Bond(bondIndex.getBondID(), atoms.get(bondIndex.getAtom(0)), atoms.get(bondIndex.getAtom(1)));
+			Bond bond = new Bond(bondIndex.getConnecID(), atoms.get(bondIndex.getAtom(0)), atoms.get(bondIndex.getAtom(1)));
 			bonds.add(bond);
 		}
 		
 		for(AngleIndex angleIndex : blueprint.getAngleIndexes())
 		{
-			Angle angle = new Angle(angleIndex.getAngleID(), atoms.get(angleIndex.getAtom(0)),
+			Angle angle = new Angle(angleIndex.getConnecID(), atoms.get(angleIndex.getAtom(0)),
 					atoms.get(angleIndex.getAtom(1)), atoms.get(angleIndex.getAtom(2)));
 			angles.add(angle);
 		}
 		
 		for(DihedralIndex dihedralIndex : blueprint.getDihedralIndexes())
 		{
-			Dihedral dihedral = new Dihedral(dihedralIndex.getDihedralID(), atoms.get(dihedralIndex.getAtom(0)),
+			Dihedral dihedral = new Dihedral(dihedralIndex.getConnecID(), atoms.get(dihedralIndex.getAtom(0)),
 					atoms.get(dihedralIndex.getAtom(1)), atoms.get(dihedralIndex.getAtom(2)), atoms.get(dihedralIndex.getAtom(3)));
 			dihedrals.add(dihedral);
 		}

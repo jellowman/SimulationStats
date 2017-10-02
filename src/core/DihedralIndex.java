@@ -14,6 +14,7 @@ public class DihedralIndex
 	
 	/**This angle's assigned ID*/
 	protected int dihedralID;
+	protected int connecID;
 	
 	protected int[] dihedralIndex;
 	
@@ -25,7 +26,7 @@ public class DihedralIndex
 	 * @param atom3		A central atom in the dihedral, attached to atom4
 	 * @param atom4		One of the atom indexes at the end of the dihedral
 	 */
-	public DihedralIndex(int atom1, int atom2, int atom3, int atom4)
+	public DihedralIndex(int connecID, int atom1, int atom2, int atom3, int atom4)
 	{
 		dihedralIndex = new int[4];
 		dihedralIndex[0] = atom1-1;
@@ -34,6 +35,7 @@ public class DihedralIndex
 		dihedralIndex[3] = atom4-1;
 		dihedralID = newDihedralID;
 		newDihedralID++;
+		this.connecID = connecID;
 	}
 	
 	public int getAtom(int i)
@@ -44,5 +46,9 @@ public class DihedralIndex
 	public int getDihedralID()
 	{
 		return dihedralID;
+	}
+	
+	public int getConnecID() {
+		return connecID;
 	}
 }

@@ -14,6 +14,7 @@ public class AngleIndex
 	
 	/**This angle's assigned ID*/
 	protected int angleID;
+	protected int connecID;
 	
 	protected int[] angleIndex;
 	
@@ -23,7 +24,7 @@ public class AngleIndex
 	 * @param atom2		The central atom index that forms the origin of the angle
 	 * @param atom3		One of the atom indexes at the end of the angle
 	 */
-	public AngleIndex(int atom1, int atom2, int atom3)
+	public AngleIndex(int connecID, int atom1, int atom2, int atom3)
 	{
 		angleIndex = new int[3];
 		angleIndex[0] = atom1-1;
@@ -31,6 +32,7 @@ public class AngleIndex
 		angleIndex[2] = atom3-1;
 		angleID = newAngleID;
 		newAngleID++;
+		this.connecID = connecID;
 	}
 	
 	public int getAtom(int i)
@@ -41,5 +43,9 @@ public class AngleIndex
 	public int getAngleID()
 	{
 		return angleID;
+	}
+	
+	public int getConnecID() {
+		return connecID;
 	}
 }

@@ -47,23 +47,31 @@ public class PDB_Parser
 				{
 					blueprint.addToKey(parts[2]);
 				}
-				else if (parts[0].equals("CONECT"))
+				else if (parts[0].contains("CONECT"))
 				{
+					//Assign same-type connection ID
+					int connecID;
+					try {
+					connecID = Integer.parseInt(parts[0].substring(6));
+					} catch (NumberFormatException e) {
+						connecID = 0;
+					}
+					
 					//Build Bond
 					if(parts.length == 3)
 					{
-						//Assume format from file is second, first
-						blueprint.addBondIndex(parts[2], parts[1]);
+						//Assume format from file is first, second
+						blueprint.addBondIndex(connecID, parts[1], parts[2]);
 					}
 					//Build Angle
 					else if(parts.length == 4)
 					{
-						//Assume format from file is center, left, right; need to insert as left, center, right
-						blueprint.addAngleIndex(parts[2], parts[1], parts[3]);
+						//Assume format from file is left, center, right; need to insert as left, center, right
+						blueprint.addAngleIndex(connecID, parts[1], parts[2], parts[3]);
 					}
 					//Build Dihedral
 					else if(parts.length == 5) {
-						blueprint.addDihedralIndex(parts[1], parts[2], parts[3], parts[4]);
+						blueprint.addDihedralIndex(connecID, parts[1], parts[2], parts[3], parts[4]);
 					}
 				}
 				nextLine = br.readLine();

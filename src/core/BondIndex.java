@@ -13,6 +13,7 @@ public class BondIndex
 	
 	/**This bond's assigned ID*/
 	protected int bondID;
+	protected int connecID;
 	
 	protected int[] bondIndex;
 	
@@ -21,13 +22,14 @@ public class BondIndex
 	 * @param atom1		The first atom index
 	 * @param atom2		The second atom index
 	 */
-	public BondIndex(int atom1, int atom2)
+	public BondIndex(int connecID, int atom1, int atom2)
 	{
 		bondIndex = new int[2];
 		bondIndex[0] = atom1-1;
 		bondIndex[1] = atom2-1;
 		bondID = newBondID;
 		newBondID++;
+		this.connecID = connecID;
 	}
 	
 	public int getAtom(int i)
@@ -38,5 +40,9 @@ public class BondIndex
 	public int getBondID()
 	{
 		return bondID;
+	}
+	
+	public int getConnecID() {
+		return connecID;
 	}
 }
