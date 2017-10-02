@@ -14,6 +14,7 @@ import core.Atom;
 import core.Molecule;
 import core.Molecule.Angle;
 import core.Molecule.Bond;
+import core.Molecule.Dihedral;
 
 public class DatWriter 
 {
@@ -61,6 +62,8 @@ public class DatWriter
 		writeBonds(br, mols);
 		//Write out Angles
 		writeAngles(br, mols);
+		//Write out Dihedrals
+		writeDihedrals(br, mols);
 		
 		System.out.println("Finished!");
 		
@@ -78,11 +81,12 @@ public class DatWriter
 	private static void writeCBA(BufferedWriter br, ArrayList<Molecule> mols, HashMap<String, Integer> atomTypeToNumType,
 			HashMap<String, Double> atomTypeToMass, HashMap<String, Double> atomTypeToCharge)
 	{
-		int numAtoms = 0, numBonds = 0, numAngles = 0;
+		int numAtoms = 0, numBonds = 0, numAngles = 0, numDihedrals = 0;
 		double maxX = 0, maxY = 0, maxZ = 0;
 		HashSet<String> atomTypes = new HashSet<String>();
 		HashSet<Integer> bondTypes = new HashSet<Integer>();
 		HashSet<Integer> angleTypes = new HashSet<Integer>();
+		HashSet<Integer> dihedralTypes = new HashSet<Integer>();
 		
 		for(Molecule mol : mols)
 		{
@@ -113,6 +117,11 @@ public class DatWriter
 				numAngles++;
 				angleTypes.add(angle.getID());
 			}
+			for(Dihedral dihedral : mol.getDihedrals())
+			{
+				numDihedrals++;
+				dihedralTypes.add(dihedral.getID());
+			}
 		}
 		
 		//Write info to header of file
@@ -121,10 +130,13 @@ public class DatWriter
 		br.write("\t\t" + numAtoms + " atoms"); br.newLine();
 		br.write("\t\t" + numBonds + " bonds"); br.newLine();
 		br.write("\t\t" + numAngles + " angles"); br.newLine();
+		br.write("\t\t" + numDihedrals + " dihedrals"); br.newLine();
 		br.newLine();
 		br.write("\t\t\t" + atomTypes.size() + " atom types"); br.newLine();
 		br.write("\t\t\t" + bondTypes.size() + " bond types"); br.newLine();
-		br.write("\t\t\t" + angleTypes.size() + " angle types"); br.newLine(); br.newLine();
+		br.write("\t\t\t" + angleTypes.size() + " angle types"); br.newLine();
+		br.write("\t\t\t" + dihedralTypes.size() + " dihedral types"); br.newLine();
+		br.newLine();
 		
 		//Write max and min simulation coordinates
 		br.write(" 0.0000000E+00   " + String.format("%-15.12f", maxX + SIMULATION_MARGIN) + "      xlo xhi"); br.newLine();
@@ -232,6 +244,29 @@ public class DatWriter
 		catch (IOException io)
 		{
 			System.err.println("Error writing angles.");
+			io.printStackTrace();
+		}
+	}
+	
+	private static void writeDihedrals(BufferedWriter br, ArrayList<Molecule> mols)
+	{
+		try{
+			br.newLine(); br.write(" Dihedrals"); br.newLine(); br.newLine();
+			
+			int dihedralNum = 1;
+			for(Molecule mol : mols)
+			{
+				for(Dihedral dihedral : mol.getDihedrals())
+				{
+					String formatted = String.format("%12d %s", dihedralNum, dihedral.toString());
+					br.write(formatted); br.newLine();
+					dihedralNum++;
+				}
+			}
+		}
+		catch (IOException io)
+		{
+			System.err.println("Error writing dihedrals.");
 			io.printStackTrace();
 		}
 	}

@@ -58,8 +58,12 @@ public class PDB_Parser
 					//Build Angle
 					else if(parts.length == 4)
 					{
-						//Assume format from file is center, left, right
+						//Assume format from file is center, left, right; need to insert as left, center, right
 						blueprint.addAngleIndex(parts[2], parts[1], parts[3]);
+					}
+					//Build Dihedral
+					else if(parts.length == 5) {
+						blueprint.addDihedralIndex(parts[1], parts[2], parts[3], parts[4]);
 					}
 				}
 				nextLine = br.readLine();
@@ -70,6 +74,7 @@ public class PDB_Parser
 			System.out.println("Loaded molecule: " + blueprint.getKey());
 			System.out.println("Bonds: " + blueprint.getBondIndexes().size());
 			System.out.println("Angles: " + blueprint.getAngleIndexes().size());
+			System.out.println("Dihedrals: " + blueprint.getDihedralIndexes().size());
 			
 			br.close();
 			fr.close();
@@ -135,7 +140,7 @@ public class PDB_Parser
 						mol.addAtom(atom);
 					}
 					
-					mol.buildBondsAndAngles();
+					mol.buildConnections();
 					molecules.add(mol);
 					tempAtomCollection = new ArrayList<Atom>();
 				}

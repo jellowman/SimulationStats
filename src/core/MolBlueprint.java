@@ -11,6 +11,7 @@ public class MolBlueprint
 {
 	protected ArrayList<BondIndex> bondIndexes;
 	protected ArrayList<AngleIndex> angleIndexes;
+	protected ArrayList<DihedralIndex> dihedralIndexes;
 	String key;
 	/*
 	 * Will be implemented at a later time
@@ -38,6 +39,14 @@ public class MolBlueprint
 		angleIndexes.add(new AngleIndex(a1, a2, a3));
 	}
 	
+	public void addDihedralIndex(String atom1, String atom2, String atom3, String atom4) {
+		int a1 = Integer.parseInt(atom1);
+		int a2 = Integer.parseInt(atom2);
+		int a3 = Integer.parseInt(atom3);
+		int a4 = Integer.parseInt(atom4);
+		dihedralIndexes.add(new DihedralIndex(a1, a2, a3, a4));
+	}
+	
 	public ArrayList<BondIndex> getBondIndexes()
 	{
 		return bondIndexes;
@@ -46,6 +55,10 @@ public class MolBlueprint
 	public ArrayList<AngleIndex> getAngleIndexes()
 	{
 		return angleIndexes;
+	}
+	
+	public ArrayList<DihedralIndex> getDihedralIndexes() {
+		return dihedralIndexes;
 	}
 	
 	public void addToKey(String add)

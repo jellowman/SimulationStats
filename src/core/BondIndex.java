@@ -17,7 +17,7 @@ public class BondIndex
 	protected int[] bondIndex;
 	
 	/**
-	 * Creates a new bond association between three specified atom indexes
+	 * Creates a new bond association between two specified atom indexes
 	 * @param atom1		The first atom index
 	 * @param atom2		The second atom index
 	 */

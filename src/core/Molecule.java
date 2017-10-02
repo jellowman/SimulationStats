@@ -12,6 +12,7 @@ public class Molecule
 	
 	protected ArrayList<Bond> bonds;
 	protected ArrayList<Angle> angles;
+	protected ArrayList<Dihedral> dihedrals;
 	
 	public Molecule(MolBlueprint blueprint)
 	{
@@ -19,6 +20,7 @@ public class Molecule
 		atoms = new ArrayList<Atom>();
 		bonds = new ArrayList<Bond>();
 		angles = new ArrayList<Angle>();
+		dihedrals = new ArrayList<Dihedral>();
 	}
 	
 	public void addAtom(Atom atom)
@@ -75,8 +77,33 @@ public class Molecule
 			return angleID;
 		}
 	}
+	
+	public class Dihedral
+	{
+		private Atom atom1, atom2, atom3, atom4;
+		private int dihedralID;
+		
+		public Dihedral(int dihedralID, Atom atom1, Atom atom2, Atom atom3, Atom atom4)
+		{
+			this.dihedralID = dihedralID;
+			this.atom1 = atom1;
+			this.atom2 = atom2;
+			this.atom3 = atom3;
+		}
+		
+		public String toString()
+		{
+			String formatted = String.format("%12d %12d %12d %12d", dihedralID, atom1.getID(), atom2.getID(), atom3.getID(), atom4.getID());
+			return formatted;
+		}
+		
+		public int getID()
+		{
+			return dihedralID;
+		}
+	}
 
-	public void buildBondsAndAngles() 
+	public void buildConnections() 
 	{
 		try{
 		for(BondIndex bondIndex : blueprint.getBondIndexes())
@@ -90,6 +117,13 @@ public class Molecule
 			Angle angle = new Angle(angleIndex.getAngleID(), atoms.get(angleIndex.getAtom(0)),
 					atoms.get(angleIndex.getAtom(1)), atoms.get(angleIndex.getAtom(2)));
 			angles.add(angle);
+		}
+		
+		for(DihedralIndex dihedralIndex : blueprint.getDihedralIndexes())
+		{
+			Dihedral dihedral = new Dihedral(dihedralIndex.getDihedralID(), atoms.get(dihedralIndex.getAtom(0)),
+					atoms.get(dihedralIndex.getAtom(1)), atoms.get(dihedralIndex.getAtom(2)), atoms.get(dihedralIndex.getAtom(3)));
+			dihedrals.add(dihedral);
 		}
 		}
 		catch(NullPointerException ne)
@@ -116,10 +150,14 @@ public class Molecule
 	{
 		return angles;
 	}
+	public ArrayList<Dihedral> getDihedrals()
+	{
+		return dihedrals;
+	}
 	
 	public String toString()
 	{
-		return "Atoms: " + atoms.size() + " Bonds: " + bonds.size() + " Angles: " + angles.size();
+		return "Atoms: " + atoms.size() + " Bonds: " + bonds.size() + " Angles: " + angles.size() + " Dihedrals: " + dihedrals.size();
 		
 	}
 }
