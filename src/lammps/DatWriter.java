@@ -19,7 +19,7 @@ import core.Molecule.Dihedral;
 public class DatWriter 
 {
 	/**An offset to ensure that molecules do not intersect with each other over periodic boundaries*/
-	private static final int SIMULATION_MARGIN = 2;
+	private static final int SIMULATION_MARGIN = 1;
 	
 	/*
 	/**
@@ -153,8 +153,10 @@ public class DatWriter
 		for(String atomType : atomTypes)
 		{
 			//Link Atom type to a number
+			System.out.println("Provide the ID number for atom type " + atomType);
+			atomNum = Integer.valueOf(sc.nextLine());
 			atomTypeToNumType.put(atomType, atomNum);
-			atomNum++;
+			//atomNum++;
 			
 			//Link Atom type to a mass
 			System.out.println("Provide the mass of the atom type " + atomType);
