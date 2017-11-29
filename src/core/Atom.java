@@ -82,6 +82,18 @@ public class Atom
 	{
 		return iD;
 	}
+	public void setXCord(double x) {
+		xCord = x;
+	}
+	public void setYCord(double y) {
+		yCord = y;
+	}
+	public void setZCord(double z) {
+		zCord = z;
+	}
+	public void setCords(double x, double y, double z) {
+		xCord = x; yCord = y; zCord = z;
+	}
 	
 	public String toString()
 	{

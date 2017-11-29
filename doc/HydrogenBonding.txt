@@ -1,0 +1,11 @@
+To make a hydrogen bond lifetime calculator:
+
+-Existing structures:
+	-Atom, molecule, simulation classes
+
+-To add:
+	-Lammps output parser (currently had pdb reader, could already work)
+	-Code to find hydrogen bond lifetime
+	
+Specifics of hydrogen bonding code:
+	[Located in HBondLife.java]
