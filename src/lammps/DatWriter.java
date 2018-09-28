@@ -37,12 +37,12 @@ public class DatWriter
 	 * coordinates and any additional properties for a lammps .dat input file
 	 * such as bonds and angles between atoms.
 	 * @param mols	The array of molecules in the system
+	 * @param sc 
 	 */
-	public static void writeFile(ArrayList<Molecule> mols)
+	public static void writeFile(ArrayList<Molecule> mols, Scanner sc)
 	{
 		//Initialize the file.
-		@SuppressWarnings("resource")
-		Scanner sc = new Scanner(System.in);
+		
 		System.out.println("Please provide a name for the Lammps input file.");
 		String name = sc.nextLine();
 		try{
@@ -54,7 +54,7 @@ public class DatWriter
 		HashMap<String, Integer> atomTypeToNumType = new HashMap<String, Integer>();
 		HashMap<String, Double> atomTypeToMass = new HashMap<String, Double>();
 		HashMap<String, Double> atomTypeToCharge = new HashMap<String, Double>();
-		writeCBA(br, mols, atomTypeToNumType, atomTypeToMass, atomTypeToCharge);
+		writeCBA(br, mols, atomTypeToNumType, atomTypeToMass, atomTypeToCharge, sc);
 		
 		//Write out Atoms
 		writeAtoms(br, mols, atomTypeToNumType, atomTypeToCharge);
@@ -79,7 +79,7 @@ public class DatWriter
 	 * Writes the coordinates, bonds, and angles (CBA) to the file linked to the <code>BufferedWriter</code>.
 	 */
 	private static void writeCBA(BufferedWriter br, ArrayList<Molecule> mols, HashMap<String, Integer> atomTypeToNumType,
-			HashMap<String, Double> atomTypeToMass, HashMap<String, Double> atomTypeToCharge)
+			HashMap<String, Double> atomTypeToMass, HashMap<String, Double> atomTypeToCharge, Scanner sc)
 	{
 		int numAtoms = 0, numBonds = 0, numAngles = 0, numDihedrals = 0;
 		double maxX = 0, maxY = 0, maxZ = 0;
@@ -147,9 +147,9 @@ public class DatWriter
 		br.write(" Masses"); br.newLine(); br.newLine();
 		
 		int atomNum = 1;
-		@SuppressWarnings("resource")
-		Scanner sc = new Scanner(System.in);
-		sc.reset();
+		//@SuppressWarnings("resource")
+		//Scanner sc = new Scanner(System.in);
+		//sc.reset();
 		for(String atomType : atomTypes)
 		{
 			//Link Atom type to a number

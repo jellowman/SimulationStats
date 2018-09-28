@@ -1,11 +1,16 @@
 package core;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import calculations.AtomDensity;
+import calculations.HBondLife;
+import calculations.HBondLifeTC;
 import lammps.DatWriter;
 import pdb.PDB_Parser;
 import tinker.ARC_Parser;
@@ -24,6 +29,13 @@ public class Driver {
 	 * 				to run when calling the executable
 	 */
 	public static void main(String[] args) {
+		//Set up a text input instead of reading from console
+		/*try{
+		System.setIn(new FileInputStream("input.txt"));
+		} catch(FileNotFoundException e) {
+			System.err.println("Input file not found.");
+			System.exit(0);
+		}*/
 		Scanner sc = new Scanner(System.in);
 		
 		//Read in file name of file
@@ -32,9 +44,19 @@ public class Driver {
 		
 		//arc_Analysis(fileName);
 		//xyz_Analysis(fileName);
+		
 		//TODO Implement more calculations here:
-		pdbToLmpDat(sc);
-		sc.close();
+		//pdbToLmpDat(sc);
+		
+		//HBondLife hL = new HBondLife();
+		//hL.runAnalysis();
+		
+		HBondLifeTC hLTC = new HBondLifeTC();
+		hLTC.runAnalysis();
+		
+		//AtomDensity ad = new AtomDensity();
+		//ad.runAnalysis();
+		//sc.close();
 	}
 	
 	/**
@@ -113,6 +135,6 @@ public class Driver {
 		
 		//Write the molecules to a Lammps .dat file
 		ArrayList<Molecule> mols = par.getMolecules();		
-		DatWriter.writeFile(mols);
+		DatWriter.writeFile(mols, sc);
 	}
 }

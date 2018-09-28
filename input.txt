@@ -1,32 +1,29 @@
-Provide the mass of the atom type OG
+tip4p_2005.pdb
+gly.pdb
+DONE
+slab50L.pdb
+slab50L.dat
+1
 15.999
-Provide the charge of the atom type OG
 -0.604800
-Provide the mass of the atom type OW
+2
 15.999
-Provide the charge of the atom type OW
 -1.112800
-Provide the mass of the atom type H1
+3
 1.008
-Provide the charge of the atom type H1
 0.415800
-Provide the mass of the atom type H2
+4
 1.008
-Provide the charge of the atom type H2
 0.026000
-Provide the mass of the atom type H3
+5
 1.008
-Provide the charge of the atom type H3
 0.044000
-Provide the mass of the atom type C1
+6
 12.011
-Provide the charge of the atom type C1
 0.182000
-Provide the mass of the atom type C2
+7
 12.011
-Provide the charge of the atom type C2
 0.055000
-Provide the mass of the atom type HW
+8
 1.008
-Provide the charge of the atom type HW
 0.556400

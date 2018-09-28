@@ -15,9 +15,15 @@ public class BulkSystem extends ArrayList<Atom>
 	
 	/**The dimensions of the system in Cartesian coordinates.*/
 	private double xBox, yBox, zBox;
+	private double xMax, yMax, zMax;
+	private double xMin, yMin, zMin;
 	/**The number of atoms in a system.*/
 	private int numAtoms;
 	
+	public BulkSystem() {
+		xBox = 0; yBox = 0; zBox = 0;
+		numAtoms = 0;
+	}
 	public void setNumAtoms(int num) {
 		numAtoms = num;
 	}
@@ -45,6 +51,42 @@ public class BulkSystem extends ArrayList<Atom>
 	}
 	public double getZBox() {
 		return zBox;
+	}
+	public void setXMax(double x) {
+		xMax = x;
+	}
+	public void setXMin(double x) {
+		xMin = x;
+	}
+	public void setYMax(double y) {
+		yMax = y;
+	}
+	public void setYMin(double y) {
+		yMin = y;
+	}
+	public void setZMax(double z) {
+		zMax = z;
+	}
+	public void setZMin(double z) {
+		zMin = z;
+	}
+	public double getXMax() {
+		return xMax;
+	}
+	public double getXMin() {
+		return xMin;
+	}
+	public double getYMax() {
+		return yMax;
+	}
+	public double getYMin() {
+		return yMin;
+	}
+	public double getZMax() {
+		return zMax;
+	}
+	public double getZMin() {
+		return zMin;
 	}
 	
 	/**

@@ -17,6 +17,9 @@ public class Atom
 	/**The numeric ID assigned by the simulation system*/
 	private int iD;
 	
+	/**The molecular ID that this atom is associated with*/
+	private int molID;
+	
 	/**
 	 * Initializes the atom with coordinates, but will give it a default name of "None".
 	 * @param x		The x-coordinate of the atom
@@ -81,6 +84,12 @@ public class Atom
 	public int getID()
 	{
 		return iD;
+	}
+	public int getMolID() {
+		return molID;
+	}
+	public void setMolID(int mid) {
+		molID = mid;
 	}
 	public void setXCord(double x) {
 		xCord = x;

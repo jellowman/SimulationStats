@@ -28,16 +28,18 @@ public class Geometry
 		return radius;
 	}
 	
+	public static double PeriodicDistance(double a, double b, double boxLo, double boxHi) {
+		//return PeriodicDistance(a-boxLo, b-boxHi, boxHi-boxLo);
+		return PeriodicDistance(a, b, boxHi-boxLo);
+	}
 	public static double PeriodicDistance(double a, double b, double dimBox) {
-		double dist = a-b;
-		if(dist > dimBox/2) {
-			dist = dimBox-dist;
-		}
+		double dist = b - a;
+		dist = dist - Math.round(dist/dimBox) * dimBox;
 		return dist;
 	}
 	
 	/**
-	 * Calculates the angle for a bond.
+	 * Calculates the angle for a bond in degrees.
 	 * @param a - An atom specified as the root of the angle
 	 * @param b - An atom as a leaf of the angle
 	 * @param c - An atom as a leaf of the angle

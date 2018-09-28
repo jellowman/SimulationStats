@@ -23,6 +23,14 @@ public class Molecule
 		dihedrals = new ArrayList<Dihedral>();
 	}
 	
+	public Molecule() {
+		blueprint = null;
+		atoms = new ArrayList<Atom>();
+		bonds = null;
+		angles = null;
+		dihedrals = null;
+	}
+	
 	public void addAtom(Atom atom)
 	{
 		atoms.add(atom);
