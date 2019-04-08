@@ -1,8 +1,8 @@
 tip4p_2005.pdb
 gly.pdb
 DONE
-slab50L.pdb
-slab50L.dat
+watergly30.pdb
+watergly30.dat
 1
 15.999
 -0.604800

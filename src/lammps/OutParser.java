@@ -13,8 +13,8 @@ import core.Molecule;
 
 public class OutParser 
 {
-	private FileReader fr;
-	private BufferedReader br;
+	protected FileReader fr;
+	protected BufferedReader br;
 	
 	/**FileReader for LAMMPS output file*/
 	
@@ -142,4 +142,127 @@ public class OutParser
 		
 		return false;
 	}
+	
+	/**
+	 * 
+	 * @param atoms The list of atoms to add onto
+	 * @param system Contains information about the system's coordinate system
+	 * @param lines Adds the raw text lines from the original trajectory file
+	 * @return True if the end of file is reached, false otherwise
+	 */
+	public boolean nextTimestep(ArrayList<Atom> atoms, BulkSystem system, ArrayList<String> lines) {
+		try {
+			//Read header info
+			String nextLine;
+			for(int i = 0; i < 4; i++) {
+				nextLine = br.readLine();
+				lines.add(nextLine);
+			}
+			
+			//Update box dimensions
+			nextLine = br.readLine();
+			lines.add(nextLine);
+			String dims[] = nextLine.split("\\s+");
+			//System.out.println(dims[1]);
+			system.setXBox(Double.valueOf(dims[1]) - Double.valueOf(dims[0]));
+			system.setXMax(Double.valueOf(dims[1]));
+			system.setXMin(Double.valueOf(dims[0]));
+			nextLine = br.readLine();
+			lines.add(nextLine);
+			dims = nextLine.split("\\s+");
+			system.setYBox(Double.valueOf(dims[1]) - Double.valueOf(dims[0]));
+			system.setYMax(Double.valueOf(dims[1]));
+			system.setYMin(Double.valueOf(dims[0]));
+			nextLine = br.readLine();
+			lines.add(nextLine);
+			dims = nextLine.split("\\s+");
+			system.setZBox(Double.valueOf(dims[1]) - Double.valueOf(dims[0]));
+			system.setZMax(Double.valueOf(dims[1]));
+			system.setZMin(Double.valueOf(dims[0]));
+			
+			nextLine = br.readLine();
+			lines.add(nextLine);
+			//Update atom coordinates
+			nextLine = br.readLine();
+			lines.add(nextLine);
+			int atomID = -1;
+			//System.out.println(nextLine.charAt(0));
+			//Will have atom coordinate information if the first character is whitespace
+			while(nextLine.charAt(0) == ' ') {
+				String parts[] = nextLine.split("\\s+");
+				//System.out.println(parts.length);
+				//System.out.println(nextLine);
+				atomID++;
+				
+				atoms.get(atomID).setXCord(Double.valueOf(parts[2]));
+				atoms.get(atomID).setYCord(Double.valueOf(parts[3]));
+				atoms.get(atomID).setZCord(Double.valueOf(parts[4]));
+						
+				nextLine = br.readLine();
+				//Check for end of file
+				if(nextLine == null) {
+					return true;
+				}
+				lines.add(nextLine);
+			}
+			return false;
+		} catch (IOException io) {
+			
+		}
+		
+		return false;
+	}
+	
+	//--Move to DatReader---
+		//Reads atoms and molecules from .dat file. Used b/c trajectory file
+		//Stores atom and molecule data in passed in Atom and Molecule arrays
+		//Does not output bond information
+		public static void staticBuildSystem(ArrayList<Atom> atoms, ArrayList<Molecule> molecules) {
+			Scanner sc = new Scanner(System.in);
+			System.out.println("Enter lammps input .dat filename");
+			String datName = sc.nextLine();
+			File datFile = new File(datName);
+			try{
+				FileReader datFr = new FileReader(datFile);
+				BufferedReader datBr = new BufferedReader(datFr);
+				
+				//Skip beginning of .dat file to atoms section
+				String nextLine = datBr.readLine();
+				while(!nextLine.contains("Atoms")) {
+					System.out.println(nextLine);
+					nextLine = datBr.readLine();
+				}
+				datBr.readLine();
+				
+				nextLine = datBr.readLine();
+				//System.out.println(nextLine);
+				while(!nextLine.isEmpty()) {
+					//System.out.println(nextLine);
+					String parts[] = nextLine.split("\\s+");
+					//Make it 0-indexed
+					int id = Integer.valueOf(parts[1]) - 1;
+					//double x = Double.valueOf(parts[4]);
+					//double y = Double.valueOf(parts[5]);
+					//double z = Double.valueOf(parts[6]);
+					Atom newAtom = new Atom(id, parts[3], 0.0, 0.0, 0.0);
+					newAtom.setMolID(Integer.valueOf(parts[2]));
+					atoms.add(newAtom);
+					
+					//Add new molecule to molecule Array if does not exist
+					int molID = Integer.valueOf(parts[2]);
+					if(molID == molecules.size()+1) {
+						molecules.add(new Molecule());
+					} else if(molID > molecules.size()+1) {
+						System.err.println("Skipped molID");
+						System.exit(1);
+					}
+					
+					molecules.get(molecules.size()-1).addAtom(newAtom);
+					nextLine = datBr.readLine();
+				}
+			} catch(IOException io) {
+				System.err.println("IO error in output parser");
+			}
+			
+		}
 }

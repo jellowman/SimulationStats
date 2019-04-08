@@ -62,4 +62,15 @@ public class Geometry
 		double cosTh = dotP/distMagn;
 		return Math.toDegrees(Math.acos(cosTh));
 	}
+	
+	/**
+	 * Calculates the volume of a specific RDF shell.
+	 * @param count			The shell ordered in increased distance from the central atom.
+	 * @param increment		The radius of each shell.
+	 * @return				The volume of an RDF shell.
+	 */
+	public static double getShellVolume(int count, double increment)
+	{
+		return (4.0/3 * Math.PI * (Math.pow(count*increment, 3) - Math.pow(((count-1)*increment), 3)));
+	}
 }

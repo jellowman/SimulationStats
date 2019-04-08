@@ -9,8 +9,14 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import calculations.AtomDensity;
+import calculations.HBondAngleDist;
 import calculations.HBondLife;
+import calculations.HBondLifeAC;
+import calculations.HBondLifeACT;
+import calculations.HBondLifeSS;
 import calculations.HBondLifeTC;
+import calculations.HBondLifeTrajWriter;
+import calculations.RadialDF2;
 import lammps.DatWriter;
 import pdb.PDB_Parser;
 import tinker.ARC_Parser;
@@ -35,8 +41,8 @@ public class Driver {
 		} catch(FileNotFoundException e) {
 			System.err.println("Input file not found.");
 			System.exit(0);
-		}*/
-		Scanner sc = new Scanner(System.in);
+		}
+		Scanner sc = new Scanner(System.in);*/
 		
 		//Read in file name of file
 		//System.out.println("Enter the name of the coordinate file:");
@@ -51,8 +57,27 @@ public class Driver {
 		//HBondLife hL = new HBondLife();
 		//hL.runAnalysis();
 		
-		HBondLifeTC hLTC = new HBondLifeTC();
-		hLTC.runAnalysis();
+		//HBondLifeTC hLTC = new HBondLifeTC();
+		//hLTC.runAnalysis();
+		
+		HBondLifeAC hLAC = new HBondLifeAC("2", "2", 3.8, 35, 10);
+		hLAC.runAnalysis();
+		
+		//HBondLifeACT hLACT = new HBondLifeACT();
+		//hLACT.runAnalysis();
+		
+		//HBondLifeSS hLSS = new HBondLifeSS();
+		//hLSS.runAnalysis();
+		
+		//HBondLifeTrajWriter hLTW = new HBondLifeTrajWriter();
+		//hLTW.runAnalysis();
+		
+		
+		//RadialDF2 rdf2 = new RadialDF2(6.0, "2", "1");
+		//rdf2.runAnalysis();
+		
+		//HBondAngleDist hbad = new HBondAngleDist(3.85, "2", "1");
+		//hbad.runAnalysis();
 		
 		//AtomDensity ad = new AtomDensity();
 		//ad.runAnalysis();
