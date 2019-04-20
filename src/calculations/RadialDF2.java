@@ -117,9 +117,9 @@ public class RadialDF2
 									int radiusLayer = (int)(r/INTERVAL);
 									if(radiusLayer < distances.length) {
 										//if(Geometry.PeriodicAngle(centerAtoms.get(i), neigh.get(j), carbonAtom, currentSystem.getXBox(), currentSystem.getYBox(), currentSystem.getZBox()) > 90) {
-											if(Geometry.PeriodicAngle(neigh.get(j), atoms.get(neigh.get(j).getID()+1), centerAtoms.get(i), currentSystem.getXBox(), currentSystem.getYBox(), currentSystem.getZBox()) < 50) {
+											//if(Geometry.PeriodicAngle(neigh.get(j), atoms.get(neigh.get(j).getID()+1), centerAtoms.get(i), currentSystem.getXBox(), currentSystem.getYBox(), currentSystem.getZBox()) < 50) {
 												distances[radiusLayer] += 1;
-											}
+											//}
 										//}
 									}
 								}
@@ -140,10 +140,10 @@ public class RadialDF2
 										currentSystem.getYBox(), currentSystem.getZBox());
 								int radiusLayer = (int)(r/INTERVAL);
 								if(radiusLayer < distances.length) {
-									if(Geometry.PeriodicAngle(neigh.get(j), centerAtoms.get(i), atoms.get(neigh.get(j).getID()+1), currentSystem.getXBox(), currentSystem.getYBox(), currentSystem.getZBox()) < 35
-											|| Geometry.PeriodicAngle(neigh.get(j), centerAtoms.get(i), atoms.get(neigh.get(j).getID()+2), currentSystem.getXBox(), currentSystem.getYBox(), currentSystem.getZBox()) < 35) {
+									//if(Geometry.PeriodicAngle(neigh.get(j), centerAtoms.get(i), atoms.get(neigh.get(j).getID()+1), currentSystem.getXBox(), currentSystem.getYBox(), currentSystem.getZBox()) < 35
+									//		|| Geometry.PeriodicAngle(neigh.get(j), centerAtoms.get(i), atoms.get(neigh.get(j).getID()+2), currentSystem.getXBox(), currentSystem.getYBox(), currentSystem.getZBox()) < 35) {
 										distances[radiusLayer] += 1;
-									}
+									//}
 								}
 							}
 						}
@@ -160,9 +160,9 @@ public class RadialDF2
 		System.out.println("Layer: Relative Density - Cumulative number of neighbors");
 		for(int i = 0; i < normalDistances.length; i++) {
 			double volume = Geometry.getShellVolume(i+1, INTERVAL);
-			if(centerAtom.equals("1")) {
+			/*if(centerAtom.equals("1")) {
 				volume = volume / 2.0;
-			}
+			}*/
 			normalDistances[i] = distances[i]/volume/aDensity/centerAtoms.size()/timestep;
 			cumulative += (double)(distances[i])/centerAtoms.size()/timestep;
 			DecimalFormat df = new DecimalFormat("#.##");

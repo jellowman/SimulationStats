@@ -10,6 +10,7 @@ import java.util.Scanner;
 
 import calculations.AtomDensity;
 import calculations.HBondAngleDist;
+import calculations.HBondBootstrap;
 import calculations.HBondLife;
 import calculations.HBondLifeAC;
 import calculations.HBondLifeACT;
@@ -60,8 +61,8 @@ public class Driver {
 		//HBondLifeTC hLTC = new HBondLifeTC();
 		//hLTC.runAnalysis();
 		
-		HBondLifeAC hLAC = new HBondLifeAC("2", "2", 3.8, 35, 10);
-		hLAC.runAnalysis();
+		//HBondLifeAC hLAC = new HBondLifeAC("2", "2", 3.85, 35, 1);
+		//hLAC.runAnalysis();
 		
 		//HBondLifeACT hLACT = new HBondLifeACT();
 		//hLACT.runAnalysis();
@@ -73,15 +74,18 @@ public class Driver {
 		//hLTW.runAnalysis();
 		
 		
-		//RadialDF2 rdf2 = new RadialDF2(6.0, "2", "1");
-		//rdf2.runAnalysis();
+		RadialDF2 rdf2 = new RadialDF2(9.0, "1", "1");
+		rdf2.runAnalysis();
 		
-		//HBondAngleDist hbad = new HBondAngleDist(3.85, "2", "1");
+		//HBondAngleDist hbad = new HBondAngleDist(7.65, "7", "7");
 		//hbad.runAnalysis();
 		
 		//AtomDensity ad = new AtomDensity();
 		//ad.runAnalysis();
 		//sc.close();
+		
+		//HBondBootstrap hbb = new HBondBootstrap(0.001, 0.0025, 700, 0.75, 0.95);
+		//hbb.runAnalysis();
 	}
 	
 	/**

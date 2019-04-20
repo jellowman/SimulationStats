@@ -25,6 +25,7 @@ public class HBondLifeAC extends HBondLifeTC
 	private double maxHBondLength;
 	private double angleCutoff;
 	private double timeInterval;
+	private static double NEIGH_CUT = 0.5;
 	
 	public HBondLifeAC(String donor, String acceptor, double maxHBondLength, double angleCutoff, double timeInterval) {
 		super();
@@ -126,7 +127,7 @@ public class HBondLifeAC extends HBondLifeTC
 					bondedPop += 1;
 				} //If not H-Bonded but still in proximity, count towards n(t) population
 				else if(Geometry.PeriodicDistance(initHBonds.get(i).getAcceptorAtom(), initHBonds.get(i).getDonatorAtom(), currentSystem.getXBox(),
-						currentSystem.getYBox(), currentSystem.getZBox()) < (maxHBondLength)) {
+						currentSystem.getYBox(), currentSystem.getZBox()) < (maxHBondLength+NEIGH_CUT)) {
 					//Check to see if either atoms in the pair are in a different H-Bond
 					//Boolean hBondFlag = false;
 					//Do not count bonds where roles reversed

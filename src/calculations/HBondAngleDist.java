@@ -122,7 +122,9 @@ public class HBondAngleDist extends RadialDF2
 									//if(Geometry.PeriodicDistance(atoms.get(neigh.get(j).getID()+1), oxygen.get(i), currentSystem.getXBox(),
 									//		currentSystem.getYBox(), currentSystem.getZBox()) < Geometry.PeriodicDistance(neigh.get(j), oxygen.get(i), currentSystem.getXBox(),
 									//				currentSystem.getYBox(), currentSystem.getZBox())){
-										angle = Geometry.PeriodicAngle(centerAtoms.get(i), atoms.get(centerAtoms.get(i).getID()+1), neigh.get(j), currentSystem.getXBox(),
+									
+									//--- Change back to +1	After Gly analysis---
+									angle = Geometry.PeriodicAngle(centerAtoms.get(i), atoms.get(centerAtoms.get(i).getID()+1), neigh.get(j), currentSystem.getXBox(),
 											currentSystem.getYBox(), currentSystem.getZBox());
 										angleHist[(int)(angle/dz)] += 1;
 									//}
