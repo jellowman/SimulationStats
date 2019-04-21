@@ -50,7 +50,7 @@ public class HBondBootstrap
 		ArrayList<Double> tao = new ArrayList<Double>();
 		
 		double tails = 0.65;
-		double strikePerc = 0.93;
+		double strikePerc = confInterval;
 		double deviationkb = .2;
 		double deviationkr = .2;
 		double deviationtao = .4;
@@ -117,9 +117,9 @@ public class HBondBootstrap
 				sumkr += kr.get(i);
 				sumtao += tao.get(i);
 			}
-			sumkb = sumkb / kb.size();
-			sumkr = sumkr / kr.size();
-			sumtao = sumtao / tao.size();
+			sumkb = sumkb / kb.size() / confInterval;
+			sumkr = sumkr / kr.size() / confInterval;
+			sumtao = sumtao / tao.size() / confInterval;
 			
 			if(range1 < 2*kbStart*deviationkb*tails && range2 < 2*krStart*deviationkr*tails && range3 < 2*taoStart*deviationtao*tails){
 				converged = true;
@@ -145,8 +145,8 @@ public class HBondBootstrap
 					deviationtao = 0.7*deviationtao;
 				}
 				System.out.println("Adjusted deviations: " + deviationkb + " " + deviationkr + " " + deviationtao);
-				//kbStart = sumkb;
-				//krStart = sumkr;
+				kbStart = sumkb;
+				krStart = sumkr;
 				taoStart = sumtao;
 				System.out.println("New averages: " + kbStart + " " + krStart + " " + taoStart);
 				System.out.println("---");
@@ -165,9 +165,9 @@ public class HBondBootstrap
 			sumkr += kr.get(i);
 			sumtao += tao.get(i);
 		}
-		sumkb = sumkb / kb.size();
-		sumkr = sumkr / kr.size();
-		sumtao = sumtao / tao.size();
+		sumkb = sumkb / kb.size() / confInterval;
+		sumkr = sumkr / kr.size() / confInterval;
+		sumtao = sumtao / tao.size() / confInterval;
 		double mediankb = kb.get(kb.size()/2);
 		double mediankr = kr.get(kr.size()/2);
 		double mediantao = tao.get(tao.size()/2);
@@ -176,6 +176,10 @@ public class HBondBootstrap
 		System.out.println("kb: " + sumkb + "/" + mediankb + " +- " + rangekb/2);
 		System.out.println("kr: " + sumkr + "/" + mediankr + " +- " + rangekr/2);
 		System.out.println("tao: " + sumtao + "/" + mediantao + " +- " + rangetao/2);
+		
+		System.out.println("kb min: " + kb.get((int)(kb.size()*0.05)) + " - kb max: " + kb.get((int)(kb.size()*0.95)));
+		System.out.println("kr min: " + kr.get((int)(kr.size()*0.05)) + " - kr max: " + kr.get((int)(kr.size()*0.95)));
+		System.out.println("tao min: " + tao.get((int)(tao.size()*0.05)) + " - tao max: " + tao.get((int)(tao.size()*0.95)));
 	}
 	
 	/**

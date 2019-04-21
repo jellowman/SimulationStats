@@ -74,8 +74,8 @@ public class Driver {
 		//hLTW.runAnalysis();
 		
 		
-		RadialDF2 rdf2 = new RadialDF2(9.0, "1", "1");
-		rdf2.runAnalysis();
+		//RadialDF2 rdf2 = new RadialDF2(9.0, "1", "1");
+		//rdf2.runAnalysis();
 		
 		//HBondAngleDist hbad = new HBondAngleDist(7.65, "7", "7");
 		//hbad.runAnalysis();
@@ -84,8 +84,8 @@ public class Driver {
 		//ad.runAnalysis();
 		//sc.close();
 		
-		//HBondBootstrap hbb = new HBondBootstrap(0.001, 0.0025, 700, 0.75, 0.95);
-		//hbb.runAnalysis();
+		HBondBootstrap hbb = new HBondBootstrap(.001,.0025,700,.75, 0.99);
+		hbb.runAnalysis();
 	}
 	
 	/**
